@@ -9,13 +9,19 @@ const app = express();
 // Conectar a la Base de Datos
 connectDB();
 
-// Middlewares - CORS permisivo para desarrollo
-app.use(cors({
-  origin: true, // Permite cualquier origen
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
-}));
+// Middlewares - CORS muy permisivo
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, x-auth-token');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use(express.json());
 
 // Mensaje de bienvenida en la ruta raíz
