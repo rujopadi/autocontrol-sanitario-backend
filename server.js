@@ -10,7 +10,15 @@ const app = express();
 connectDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://autocontrolsanitarioapp-frontend-ila0le-698e22-31-97-193-114.traefik.me',
+    'http://autocontrolsanitarioapp-frontend-ila0le-698e22-31-97-193-114.traefik.me'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Mensaje de bienvenida en la ruta raíz
