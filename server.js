@@ -9,15 +9,12 @@ const app = express();
 // Conectar a la Base de Datos
 connectDB();
 
-// Middlewares
+// Middlewares - CORS permisivo para desarrollo
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://autocontrolsanitarioapp-frontend-ila0le-698e22-31-97-193-114.traefik.me',
-    'http://autocontrolsanitarioapp-frontend-ila0le-698e22-31-97-193-114.traefik.me'
-  ],
-  credentials: true
+  origin: true, // Permite cualquier origen
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
 }));
 app.use(express.json());
 
